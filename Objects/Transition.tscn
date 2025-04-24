@@ -28,7 +28,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("6_tapm4")
 }],
-"loop": true,
+"loop": false,
 "name": &"transition_in",
 "speed": 5.0
 }, {
@@ -58,4 +58,5 @@ animations = [{
 
 [node name="transition" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_qq041")
-animation = &"transition_out"
+animation = &"transition_in"
+autoplay = "transition_in"

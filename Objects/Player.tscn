@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://dakahmrlk75w8"]
+[gd_scene load_steps=53 format=3 uid="uid://dakahmrlk75w8"]
 
 [ext_resource type="Texture2D" uid="uid://c20h4irw27o5w" path="res://Art/Player/death.png" id="1_gijnf"]
 [ext_resource type="Shader" uid="uid://c75mvinmykrur" path="res://Scripts/Shaders/Glitchy.gdshader" id="1_t1tke"]
@@ -360,11 +360,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_u60sl"]
-radius = 3.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t1tke"]
-size = Vector2(9, 10)
+size = Vector2(10, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qwxmt"]
 size = Vector2(10, 14)
@@ -378,12 +375,8 @@ script = ExtResource("5_u60sl")
 sprite_frames = SubResource("SpriteFrames_gnfvx")
 animation = &"Run_R"
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
-shape = SubResource("CircleShape2D_u60sl")
-
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -1)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_t1tke")
 
 [node name="parent_area" type="Area2D" parent="."]

@@ -1,12 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2ahtxo1johy3"]
+[gd_scene load_steps=15 format=3 uid="uid://b2ahtxo1johy3"]
 
 [ext_resource type="Texture2D" uid="uid://bsrs8wiuoyv45" path="res://Art/Old/Dungeon Tile Set.png" id="1_qjdxc"]
 [ext_resource type="Script" uid="uid://b5lfdcqoo1q7a" path="res://Scripts/level_manager.gd" id="1_rf4qq"]
 [ext_resource type="PackedScene" uid="uid://dakahmrlk75w8" path="res://Objects/Player.tscn" id="2_671ag"]
+[ext_resource type="Script" uid="uid://dlkpl4dydjlr1" path="res://Scripts/cam_ani.gd" id="2_olvls"]
 [ext_resource type="Shader" uid="uid://c75mvinmykrur" path="res://Scripts/Shaders/Glitchy.gdshader" id="5_md3j3"]
 [ext_resource type="PackedScene" uid="uid://dgbjh1wpdknml" path="res://Objects/turtle.tscn" id="6_34tpy"]
 [ext_resource type="PackedScene" uid="uid://dulfc78no4gpc" path="res://Objects/Transition.tscn" id="7_0naw0"]
-[ext_resource type="PackedScene" uid="uid://tl5f6wv318g8" path="res://Objects/cannon.tscn" id="7_aju2k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_671ag"]
 texture = ExtResource("1_qjdxc")
@@ -217,6 +217,59 @@ physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_671ag")
 
+[sub_resource type="Animation" id="Animation_olvls"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_md3j3"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rf4qq"]
+resource_name = "shake"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(5, 0), Vector2(0, 0), Vector2(-5, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_md3j3"]
+_data = {
+&"RESET": SubResource("Animation_olvls"),
+&"idle": SubResource("Animation_md3j3"),
+&"shake": SubResource("Animation_rf4qq")
+}
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_34tpy"]
 shader = ExtResource("5_md3j3")
 shader_parameter/r_displacement = Vector2(3, 0)
@@ -226,31 +279,6 @@ shader_parameter/b_displacement = Vector2(-3, 0)
 [node name="lvl_1" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_rf4qq")
-cam_shake_amount = 5.0
-
-[node name="HUD" type="CanvasLayer" parent="."]
-layer = 3
-
-[node name="UI" type="Control" parent="HUD"]
-texture_filter = 1
-layout_mode = 3
-anchors_preset = 0
-offset_left = 200.0
-offset_top = 150.0
-offset_right = 240.0
-offset_bottom = 190.0
-
-[node name="CPU_Load" type="ProgressBar" parent="HUD/UI"]
-texture_filter = 1
-layout_mode = 0
-offset_left = -186.0
-offset_top = -139.0
-offset_right = -74.0
-offset_bottom = -112.0
-step = 1.0
-value = 50.0
-
-[node name="transition" parent="HUD/UI" instance=ExtResource("7_0naw0")]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_rf4qq")
@@ -262,11 +290,33 @@ position = Vector2(-57, -76)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(57, 76)
-limit_top = -150
-limit_bottom = 150
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+
+[node name="cam_ani" type="AnimationPlayer" parent="Player/Camera2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_md3j3")
+}
+autoplay = "idle"
+script = ExtResource("2_olvls")
+
+[node name="UI" type="Control" parent="."]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CPU_Load" type="ProgressBar" parent="UI"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -186.0
+offset_top = -139.0
+offset_right = -74.0
+offset_bottom = -112.0
+step = 1.0
+value = 50.0
 
 [node name="Time_Till_Glitch" type="Timer" parent="."]
 process_mode = 3
@@ -300,9 +350,9 @@ speed = 50.0
 [node name="player_dead" type="Timer" parent="."]
 wait_time = 2.0
 
-[node name="Cannon" parent="." instance=ExtResource("7_aju2k")]
-position = Vector2(40, -41)
+[node name="transition" parent="." instance=ExtResource("7_0naw0")]
 
+[connection signal="animation_finished" from="Player/Camera2D/cam_ani" to="Player/Camera2D/cam_ani" method="_on_animation_finished"]
 [connection signal="timeout" from="Time_Till_Glitch" to="." method="Time_To_Crash"]
 [connection signal="timeout" from="CPU_Load_Variability" to="." method="CPU_Load_Variability_Timer"]
 [connection signal="timeout" from="Time_Till_Unglitch" to="." method="Time_To_UnCrash"]

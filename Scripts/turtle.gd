@@ -22,11 +22,10 @@ func _physics_process(delta: float) -> void:
 func _on_killer_area_area_entered(area: Area2D) -> void:
 	if area.get_parent().name == "Player" and alive:
 		print("player killed")
+		
 		var player = area.get_parent()
-		if !player.player_killed:
-			player.player_input_disabled = true
-			player.velocity = Vector2.ZERO
-			player.player_killed = true
+		player.player_killed_func()
+			
 	pass # Replace with function body.
 
 

@@ -9,6 +9,8 @@ var player_input_disabled
 @export var movement_speed = 100
 @onready var ani: AnimatedSprite2D = $ani
 var player_killed = false
+@onready var collision_shape_2d_2: CollisionShape2D = $CollisionShape2D2
+@onready var collision_shape_2d_3: CollisionShape2D = $parent_area/CollisionShape2D3
 
 	
 func Player_Glitched():
@@ -21,19 +23,21 @@ func Player_Unglitched():
 	player_time_scale = 1
 	
 
-		
+func player_killed_func():
+	self.get_parent().player_dead()
+	player_input_disabled = true
+	velocity = Vector2.ZERO
+	player_killed = true
 
 func _physics_process(delta: float) -> void:
 	if player_killed:
-		
-		$CollisionShape2D2.disabled = true
-		$CollisionShape2D3.disabled = true
-		$parent_area/CollisionShape2D3.disabled = true
+		collision_shape_2d_2.disabled = true
+		collision_shape_2d_3.disabled = true
 		var current_target_position = Vector2(self.global_position.x, self.global_position.y - 10)
 		self.global_position = self.global_position.move_toward(current_target_position, delta*100)
 		if self.global_position == current_target_position:
 			current_target_position = Vector2(self.global_position.x, self.global_position.y + 500)
-	
+		
 	
 	delta *= player_time_scale
 	

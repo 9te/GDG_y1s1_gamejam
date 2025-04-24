@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmpgd77hux5sw"]
+
+[ext_resource type="Texture2D" uid="uid://bvn0a4evmgyu2" path="res://Art/level_box.png" id="1_37rc8"]
+[ext_resource type="Texture2D" uid="uid://8odsbwhf2ssv" path="res://Art/blank.png" id="1_40av5"]
+[ext_resource type="Script" uid="uid://b5x6k67mu7dk0" path="res://Scripts/flytrap.gd" id="1_j6te5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_37rc8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_40av5")
+}],
+"loop": true,
+"name": &"ShowDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_37rc8")
+}],
+"loop": true,
+"name": &"ShowUp",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_40av5"]
+
+[node name="flytrap" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_37rc8")
+animation = &"ShowDown"
+script = ExtResource("1_j6te5")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="area_collider" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_40av5")
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 2.0
+autostart = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
