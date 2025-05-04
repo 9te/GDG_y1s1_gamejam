@@ -8,6 +8,7 @@ var current_target_position
 var location1
 var location2
 @onready var ani: AnimatedSprite2D = $ani
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 func _ready() -> void:
 	pass
@@ -29,8 +30,10 @@ func _physics_process(delta: float) -> void:
 
 func killer_area_entered(area: Area2D) -> void:
 	if area.get_parent().name == "Player":
-		pass
-	pass # Replace with function body.
+		print("player killed")
+		
+		var player = area.get_parent()
+		player.player_killed_func()
 
 
 func dying_area_entered(area: Area2D) -> void:
@@ -49,7 +52,7 @@ func dying_area_entered(area: Area2D) -> void:
 			player.touching_ground = false
 			location1 = Vector2(self.global_position.x, self.global_position.y - 10.0)
 			location2 = Vector2(self.global_position.x, self.global_position.y + 500)
-			
+			collision_shape_2d.disabled = true
 			current_target_position = location1
 			await get_tree().create_timer(3.0).timeout
 			self.queue_free()

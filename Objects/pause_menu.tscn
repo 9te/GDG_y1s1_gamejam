@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c18iinfbj2ouo"]
+[gd_scene load_steps=3 format=3 uid="uid://c18iinfbj2ouo"]
 
 [ext_resource type="Script" uid="uid://c1ulh8he0o0yx" path="res://Scripts/pause_menu.gd" id="1_k3w1p"]
+[ext_resource type="FontFile" uid="uid://1tietc8monub" path="res://joystix monospace.otf" id="2_1dyts"]
 
 [node name="PauseMenu" type="Control"]
+z_index = 6
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,12 +14,27 @@ grow_vertical = 2
 script = ExtResource("1_k3w1p")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+z_index = 1
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 400.0
+offset_bottom = 300.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="Resume" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1dyts")
+text = "Resume Game"
+
+[node name="Resume2" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1dyts")
+text = "Quit game"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 300.0
+color = Color(0, 0, 0, 0.407843)

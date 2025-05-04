@@ -12,8 +12,9 @@ func _input(event: InputEvent) -> void:
 		transition.show()
 		transition.play("transition_out")
 		await transition.animation_finished
-		print("how'dys")
+		
 		var lvl_to_go_to = loader.contents_to_save.level
+		print(lvl_to_go_to)
 		get_tree().change_scene_to_file("res://Scenes/lvl_" + str(lvl_to_go_to) + ".tscn")
 		
 		

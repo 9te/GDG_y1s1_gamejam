@@ -11,7 +11,7 @@ var player_input_disabled
 var player_killed = false
 @onready var collision_shape_2d_2: CollisionShape2D = $CollisionShape2D2
 @onready var collision_shape_2d_3: CollisionShape2D = $parent_area/CollisionShape2D3
-
+var in_void = false
 	
 func Player_Glitched():
 	if !player_killed:
@@ -30,6 +30,9 @@ func player_killed_func():
 	player_killed = true
 
 func _physics_process(delta: float) -> void:
+	if self.position.y > 180 and !in_void:
+		in_void = true
+		player_killed_func()
 	if player_killed:
 		collision_shape_2d_2.disabled = true
 		collision_shape_2d_3.disabled = true

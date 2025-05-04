@@ -91,7 +91,7 @@ size = Vector2(15, 2.5)
 size = Vector2(16, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_irvfh"]
-size = Vector2(14, 14)
+size = Vector2(14, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ragxy"]
 size = Vector2(3, 8)
@@ -117,7 +117,6 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_ha4do")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_irvfh")
 
 [node name="RightDetector" type="Area2D" parent="."]

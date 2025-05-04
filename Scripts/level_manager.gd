@@ -14,9 +14,17 @@ var rng = RandomNumberGenerator.new()
 var lvl_finished = false
 #func cut_scene():
 @onready var saver: Node2D = $Saver
+@onready var saving_label: Label = $HUD/UI/saving_label
+@export var player_pos: Vector2
+const PLAYER = preload("res://Objects/Player.tscn")
+var game_restarted = false
+func instantiate_player():
+	var player_inst = PLAYER.instantiate()
+	player_inst.position = player_pos
 
 func next_lvl():
 	lvl_finished = true
+	saving_label.show()
 	$next_lvl_timer.start()
 	await $next_lvl_timer.timeout
 	print("doneeeeeeeeee")
@@ -63,4 +71,14 @@ func CPU_Load_Variability_Timer() -> void:
 	var new_cpu_load_value = cpu_load_value
 	new_cpu_load_value += int(RandomNumberGenerator.new().randf_range(-2, 2))
 	cpu_load_bar.value = new_cpu_load_value
+	pass # Replace with function body.
+
+
+func _on_restart_button_button_down() -> void:
+	if !game_restarted:
+		game_restarted = true
+		transition.show()
+		transition.play("transition_out")
+		await transition.animation_finished
+		get_tree().change_scene_to_file("res://Scenes/"+ get_tree().get_current_scene().name + ".tscn")
 	pass # Replace with function body.

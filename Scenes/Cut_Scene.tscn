@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bh4q5ht3mex2f"]
+[gd_scene load_steps=47 format=3 uid="uid://bh4q5ht3mex2f"]
 
 [ext_resource type="Script" uid="uid://dlkpl4dydjlr1" path="res://Scripts/cam_ani.gd" id="2_ffxw4"]
 [ext_resource type="Texture2D" uid="uid://ykwonp753y3t" path="res://Art/Player/idle.png" id="3_6cmtb"]
@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://d5yfj78gfr5r" path="res://Art/DialogueBox.png" id="6_d6qps"]
 [ext_resource type="Texture2D" uid="uid://dhv1auxhhenjt" path="res://Art/Player/run.png" id="6_ffxw4"]
 [ext_resource type="FontFile" uid="uid://1tietc8monub" path="res://joystix monospace.otf" id="7_d6qps"]
+[ext_resource type="Texture2D" uid="uid://csxqnasx3ythi" path="res://1.png" id="9_g1cvq"]
+[ext_resource type="Texture2D" uid="uid://c42ud84gpnroi" path="res://Art/portal/2.png" id="10_xwqrs"]
+[ext_resource type="Texture2D" uid="uid://cgkgpia1ftwyf" path="res://Art/portal/3.png" id="11_iffgr"]
 
 [sub_resource type="Animation" id="Animation_olvls"]
 length = 0.001
@@ -577,7 +580,66 @@ _data = {
 font = ExtResource("7_d6qps")
 font_size = 10
 
-[node name="Lvl_1" type="Node2D"]
+[sub_resource type="LabelSettings" id="LabelSettings_g1cvq"]
+font = ExtResource("7_d6qps")
+font_size = 8
+
+[sub_resource type="Animation" id="Animation_xwqrs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g1cvq"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iffgr"]
+_data = {
+&"RESET": SubResource("Animation_xwqrs"),
+&"idle": SubResource("Animation_g1cvq")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w76kr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_g1cvq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_xwqrs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_iffgr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="cutscene" type="Node2D"]
 process_mode = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -643,6 +705,29 @@ autowrap_mode = 2
 wait_time = 0.01
 one_shot = true
 ignore_time_scale = true
+
+[node name="enter" type="Label" parent="DialogueBox"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 26.0
+offset_top = 134.0
+offset_right = 89.0
+offset_bottom = 145.0
+text = "Enter -->"
+label_settings = SubResource("LabelSettings_g1cvq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DialogueBox/enter"]
+libraries = {
+&"": SubResource("AnimationLibrary_iffgr")
+}
+autoplay = "idle"
+
+[node name="portal" type="AnimatedSprite2D" parent="."]
+position = Vector2(87, 0)
+sprite_frames = SubResource("SpriteFrames_w76kr")
+autoplay = "default"
+frame_progress = 0.73272
 
 [connection signal="animation_finished" from="Camera2D/cam_ani" to="Camera2D/cam_ani" method="_on_animation_finished"]
 [connection signal="animation_finished" from="CutScene" to="CutScene" method="_on_animation_finished"]
