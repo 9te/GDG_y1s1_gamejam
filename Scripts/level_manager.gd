@@ -1,4 +1,5 @@
 extends Node2D
+@export var current_lvl: int
 @onready var cpu_load_bar: ProgressBar = $HUD/UI/CPU_Load
 var cpu_load_value = 20
 var glitching_rn
@@ -10,14 +11,30 @@ var glitching_rn
 @onready var effect_shader: ColorRect = $Effect_Shader
 @onready var transition: AnimatedSprite2D = $HUD/UI/transition
 var rng = RandomNumberGenerator.new()
+var lvl_finished = false
 #func cut_scene():
+@onready var saver: Node2D = $Saver
+
+func next_lvl():
+	lvl_finished = true
+	$next_lvl_timer.start()
+	await $next_lvl_timer.timeout
+	print("doneeeeeeeeee")
+	transition.show()
+	transition.play("transition_out")
+	await transition.animation_finished
+	saver._save(current_lvl + 1)
+	get_tree().change_scene_to_file("res://Scenes/lvl_" + str(current_lvl + 1) + ".tscn")
+	
+	
+
 func player_dead():
 	$player_dead.start()
 	await $player_dead.timeout
 	transition.show()
 	transition.play("transition_out")
 	await transition.animation_finished
-	print("res://Scenes/"+ get_tree().get_current_scene().name + ".tscn")
+	
 	get_tree().change_scene_to_file("res://Scenes/"+ get_tree().get_current_scene().name + ".tscn")
 
 func Time_To_UnCrash() -> void:
@@ -28,7 +45,7 @@ func Time_To_UnCrash() -> void:
 
 
 func Time_To_Crash() -> void:
-	if !player.player_killed:
+	if !player.player_killed and !lvl_finished:
 		effect_shader.show()
 		time_till_unglitch.start()
 		get_tree().paused = true

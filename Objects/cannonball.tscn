@@ -9,6 +9,7 @@
 radius = 5.0
 
 [node name="Cannonball" type="CharacterBody2D"]
+process_mode = 3
 script = ExtResource("1_h2hsq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

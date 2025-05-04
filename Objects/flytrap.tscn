@@ -26,6 +26,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_40av5"]
 
 [node name="flytrap" type="AnimatedSprite2D"]
+process_mode = 3
 sprite_frames = SubResource("SpriteFrames_37rc8")
 animation = &"ShowDown"
 script = ExtResource("1_j6te5")

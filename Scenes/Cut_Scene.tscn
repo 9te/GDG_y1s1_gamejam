@@ -1,7 +1,8 @@
-[gd_scene load_steps=37 format=3 uid="uid://bh4q5ht3mex2f"]
+[gd_scene load_steps=39 format=3 uid="uid://bh4q5ht3mex2f"]
 
 [ext_resource type="Script" uid="uid://dlkpl4dydjlr1" path="res://Scripts/cam_ani.gd" id="2_ffxw4"]
 [ext_resource type="Texture2D" uid="uid://ykwonp753y3t" path="res://Art/Player/idle.png" id="3_6cmtb"]
+[ext_resource type="Texture2D" uid="uid://ddc5av83rpsie" path="res://Art/Ruins-Tilesheet-Omniclause(outlines).png" id="3_8iq3p"]
 [ext_resource type="Texture2D" uid="uid://bsrs8wiuoyv45" path="res://Art/Old/Dungeon Tile Set.png" id="3_d6qps"]
 [ext_resource type="Script" uid="uid://cqex7oetd6l57" path="res://Scripts/cut_scene_ani_player.gd" id="5_ffxw4"]
 [ext_resource type="Texture2D" uid="uid://d5yfj78gfr5r" path="res://Art/DialogueBox.png" id="6_d6qps"]
@@ -265,10 +266,64 @@ texture = ExtResource("3_d6qps")
 11:15/0 = 0
 12:15/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c78ea"]
+texture = ExtResource("3_8iq3p")
+15:1/0 = 0
+16:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+9:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
+15:3/0 = 0
+16:3/0 = 0
+17:3/0 = 0
+18:3/0 = 0
+19:3/0 = 0
+20:3/0 = 0
+21:3/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+9:4/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+9:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+15:5/0 = 0
+16:5/0 = 0
+18:5/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_rf4qq"]
 physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_671ag")
+sources/1 = SubResource("TileSetAtlasSource_c78ea")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5htar"]
 atlas = ExtResource("3_6cmtb")
@@ -537,7 +592,7 @@ script = ExtResource("2_ffxw4")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_rf4qq")
 format = 2
-layer_0/tile_data = PackedInt32Array(-65538, 131072, 3, -65537, 196608, 3, -131072, 65536, 3, 131070, 65536, 1, 131071, 131072, 1, 65536, 196608, 1, 65537, 65536, 1, 65538, 131072, 1, 65539, 196608, 1, -131071, 131072, 3, -131070, 196608, 3, -131069, 196608, 3, -65539, 65536, 3, 131069, 196608, 1, -65533, 196608, 2, 3, 196608, 2, 131066, 65536, 1, 131067, 131072, 1, 131068, 196608, 1, -65542, 65536, 3, -65541, 131072, 3, -65540, 196608, 3)
+layer_0/tile_data = PackedInt32Array(-65538, 262145, 6, -65537, 262145, 6, -131072, 262145, 6, 131070, 262145, 6, 131071, 262145, 6, 65536, 262145, 6, 65537, 262145, 6, 65538, 262145, 6, -131071, 262145, 6, -131070, 262145, 6, -65539, 262145, 6, 131069, 262145, 6, 131066, 262145, 6, 131067, 262145, 6, 131068, 262145, 6, -65542, 262145, 6, -65541, 262145, 6, -65540, 262145, 6, -65530, 458753, 4, 6, 458753, 4, 65542, 327681, 6, 65539, 262145, 6, 65540, 262145, 6, 65541, 262145, 6, -131069, 262145, 6, -131068, 262145, 6, -131067, 262145, 6, -131066, 327681, 2)
 
 [node name="exit_block_node" type="Node2D" parent="."]
 position = Vector2(0, 200)
@@ -545,7 +600,7 @@ position = Vector2(0, 200)
 [node name="exit_block" type="TileMap" parent="exit_block_node"]
 tile_set = SubResource("TileSet_rf4qq")
 format = 2
-layer_0/tile_data = PackedInt32Array(-65543, 65536, 3, -7, 65536, 1, 65529, 65536, 2, 131065, 65536, 1)
+layer_0/tile_data = PackedInt32Array(-65543, 65537, 3, -7, 65537, 4, 65529, 65537, 4, 131065, 65537, 5)
 
 [node name="Player_Null" type="Node2D" parent="."]
 

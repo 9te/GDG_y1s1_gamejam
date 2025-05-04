@@ -57,6 +57,7 @@ animations = [{
 }]
 
 [node name="transition" type="AnimatedSprite2D"]
+process_mode = 3
 sprite_frames = SubResource("SpriteFrames_qq041")
 animation = &"transition_in"
 autoplay = "transition_in"

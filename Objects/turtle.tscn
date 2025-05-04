@@ -12,6 +12,7 @@ size = Vector2(15, 2.5)
 size = Vector2(16, 15)
 
 [node name="Turtle" type="CharacterBody2D"]
+process_mode = 3
 script = ExtResource("1_d42np")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

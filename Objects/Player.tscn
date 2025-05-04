@@ -373,7 +373,7 @@ script = ExtResource("5_u60sl")
 
 [node name="ani" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gnfvx")
-animation = &"Run_R"
+animation = &"Hurt_L"
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
