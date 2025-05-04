@@ -2,11 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://bsrs8wiuoyv45" path="res://Art/Old/Dungeon Tile Set.png" id="1_qjdxc"]
 [ext_resource type="Script" uid="uid://b5lfdcqoo1q7a" path="res://Scripts/level_manager.gd" id="1_rf4qq"]
+[ext_resource type="PackedScene" uid="uid://dgbjh1wpdknml" path="res://Objects/turtle.tscn" id="2_5cv2k"]
 [ext_resource type="PackedScene" uid="uid://dakahmrlk75w8" path="res://Objects/Player.tscn" id="2_671ag"]
 [ext_resource type="PackedScene" uid="uid://bh7vk2m0qn0mg" path="res://Objects/saver.tscn" id="2_aju2k"]
 [ext_resource type="PackedScene" uid="uid://dtl6hekx3ett5" path="res://Objects/goal.tscn" id="2_n84pg"]
 [ext_resource type="Shader" uid="uid://c75mvinmykrur" path="res://Scripts/Shaders/Glitchy.gdshader" id="5_md3j3"]
-[ext_resource type="PackedScene" uid="uid://dgbjh1wpdknml" path="res://Objects/turtle.tscn" id="6_34tpy"]
 [ext_resource type="PackedScene" uid="uid://dulfc78no4gpc" path="res://Objects/Transition.tscn" id="7_0naw0"]
 [ext_resource type="PackedScene" uid="uid://tl5f6wv318g8" path="res://Objects/cannon.tscn" id="7_aju2k"]
 
@@ -231,6 +231,11 @@ script = ExtResource("1_rf4qq")
 current_lvl = 1
 cam_shake_amount = 5.0
 
+[node name="Turtle" parent="." instance=ExtResource("2_5cv2k")]
+position = Vector2(76, 8)
+speed = 40.0
+extra_speed = 100.0
+
 [node name="Goal" parent="." instance=ExtResource("2_n84pg")]
 position = Vector2(192, -8)
 
@@ -259,11 +264,17 @@ step = 1.0
 value = 50.0
 
 [node name="transition" parent="HUD/UI" instance=ExtResource("7_0naw0")]
+visible = false
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_rf4qq")
 format = 2
-layer_0/tile_data = PackedInt32Array(131070, 65536, 1, 131071, 131072, 1, 65536, 196608, 1, 65537, 65536, 1, 65538, 131072, 1, 65539, 196608, 1, 131069, 196608, 1, 131066, 65536, 1, 131067, 131072, 1, 131068, 196608, 1, 65540, 65536, 1, 65541, 131072, 1, 65542, 196608, 1, 65543, 65536, 1, 65544, 131072, 1, 65545, 196608, 1, 131063, 65536, 1, 131064, 131072, 1, 131065, 196608, 1, -131070, 65536, 1, -65534, 65536, 2, 2, 65536, 3, -131063, 196608, 1, -65527, 196608, 2, 9, 196608, 3, 65546, 65536, 1, 65547, 131072, 1, 65548, 196608, 1, 65549, 65536, 1, 65550, 131072, 1, 65551, 196608, 1)
+layer_0/tile_data = PackedInt32Array(131070, 65536, 1, 131071, 131072, 1, 65536, 196608, 1, 65537, 65536, 1, 65538, 131072, 1, 65539, 196608, 1, 131069, 196608, 1, 131066, 65536, 1, 131067, 131072, 1, 131068, 196608, 1, 65540, 65536, 1, 65541, 131072, 1, 65542, 196608, 1, 65543, 65536, 1, 65544, 131072, 1, 65545, 196608, 1, 131063, 65536, 1, 131064, 131072, 1, 131065, 196608, 1, 65546, 65536, 1, 65547, 131072, 1, 65548, 196608, 1, 65549, 65536, 1, 65550, 131072, 1, 65551, 196608, 1)
+
+[node name="walls" type="TileMap" parent="." groups=["walls"]]
+tile_set = SubResource("TileSet_rf4qq")
+format = 2
+layer_0/tile_data = PackedInt32Array(-131070, 65536, 1, -65534, 65536, 2, 2, 65536, 3, -131063, 65536, 1, -65527, 65536, 2, 9, 65536, 3)
 
 [node name="Player" parent="." instance=ExtResource("2_671ag")]
 position = Vector2(170, -21)
@@ -298,12 +309,6 @@ offset_bottom = 150.0
 process_mode = 3
 one_shot = true
 ignore_time_scale = true
-
-[node name="Turtle" parent="." instance=ExtResource("6_34tpy")]
-position = Vector2(132, -2)
-location1 = Vector2(56, 8)
-location2 = Vector2(136, 8)
-speed = 50.0
 
 [node name="player_dead" type="Timer" parent="."]
 wait_time = 2.0

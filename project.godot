@@ -59,6 +59,7 @@ Enter={
 [physics]
 
 2d/default_gravity=9.8
+2d/defaults/default_clear_color=Color(0.0941176, 0.0784314, 0.145098, 1)
 
 [rendering]
 

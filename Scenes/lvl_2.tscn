@@ -302,9 +302,6 @@ ignore_time_scale = true
 
 [node name="Turtle" parent="." instance=ExtResource("8_g6iy8")]
 position = Vector2(132, -2)
-location1 = Vector2(56, 8)
-location2 = Vector2(136, 8)
-speed = 50.0
 
 [node name="player_dead" type="Timer" parent="."]
 wait_time = 2.0

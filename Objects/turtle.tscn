@@ -1,9 +1,88 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgbjh1wpdknml"]
+[gd_scene load_steps=17 format=3 uid="uid://dgbjh1wpdknml"]
 
-[ext_resource type="Texture2D" uid="uid://c36pbrsaorl3f" path="res://icon.svg" id="1_bg572"]
 [ext_resource type="Script" uid="uid://cpcy70qrr141g" path="res://Scripts/turtle.gd" id="1_d42np"]
+[ext_resource type="Texture2D" uid="uid://baxy7hv4bxyci" path="res://Art/enemies/turtle/turtle.png" id="2_d42np"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d42np"]
+atlas = ExtResource("2_d42np")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usmpt"]
+atlas = ExtResource("2_d42np")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rrq3"]
+atlas = ExtResource("2_d42np")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uh0o"]
+atlas = ExtResource("2_d42np")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha4do"]
+atlas = ExtResource("2_d42np")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irvfh"]
+atlas = ExtResource("2_d42np")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ragxy"]
+atlas = ExtResource("2_d42np")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4thuu"]
+atlas = ExtResource("2_d42np")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q182p"]
+atlas = ExtResource("2_d42np")
+region = Rect2(128, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d42np"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d42np")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usmpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rrq3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5uh0o")
+}],
+"loop": true,
+"name": &"idle_L",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha4do")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irvfh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ragxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4thuu")
+}],
+"loop": true,
+"name": &"idle_R",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q182p")
+}],
+"loop": true,
+"name": &"shell",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d42np"]
 size = Vector2(15, 2.5)
@@ -11,18 +90,19 @@ size = Vector2(15, 2.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ha4do"]
 size = Vector2(16, 15)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_irvfh"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ragxy"]
+size = Vector2(3, 8)
+
 [node name="Turtle" type="CharacterBody2D"]
 process_mode = 3
 script = ExtResource("1_d42np")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
+[node name="ani" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_d42np")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-2.38419e-07, -2.38419e-07)
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("1_bg572")
+animation = &"idle_L"
 
 [node name="DyingArea" type="Area2D" parent="."]
 
@@ -36,5 +116,27 @@ shape = SubResource("RectangleShape2D_d42np")
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_ha4do")
 
-[connection signal="area_entered" from="DyingArea" to="." method="_on_dying_area_area_entered"]
-[connection signal="area_entered" from="KillerArea" to="." method="_on_killer_area_area_entered"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_irvfh")
+
+[node name="RightDetector" type="Area2D" parent="."]
+process_mode = 3
+process_physics_priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightDetector"]
+position = Vector2(7.5, 0)
+shape = SubResource("RectangleShape2D_ragxy")
+
+[node name="LeftDetector" type="Area2D" parent="."]
+process_mode = 3
+process_physics_priority = 1
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LeftDetector"]
+position = Vector2(-8, 0)
+shape = SubResource("RectangleShape2D_ragxy")
+
+[connection signal="area_entered" from="DyingArea" to="." method="dying_area_entered"]
+[connection signal="area_entered" from="KillerArea" to="." method="killer_area_entered"]
+[connection signal="body_entered" from="RightDetector" to="." method="_on_right_detector_body_entered"]
+[connection signal="body_entered" from="LeftDetector" to="." method="_on_left_detector_body_entered"]

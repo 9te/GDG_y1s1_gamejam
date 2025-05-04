@@ -87,9 +87,22 @@ func _physics_process(delta: float) -> void:
 		
 	
 	velocity.x = dir_x * movement_speed
-	
-	move_and_slide()
-	_apply_gravity(delta)
+	if player_time_scale == 1:
+		move_and_slide()
+		_apply_gravity(delta)
+	else:
+		if !touching_ground:
+			if facing_right:
+				ani.play("Jump_R")
+			else:
+				ani.play("Jump_L")
+		else:
+			if facing_right:
+				ani.play("Idle_R")
+			else:
+				ani.play("Idle_L")
+			
+			
 	
 func _apply_gravity(delta: float):
 	delta *= player_time_scale

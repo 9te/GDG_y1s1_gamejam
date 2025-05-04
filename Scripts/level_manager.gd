@@ -48,7 +48,8 @@ func Time_To_Crash() -> void:
 	if !player.player_killed and !lvl_finished:
 		effect_shader.show()
 		time_till_unglitch.start()
-		get_tree().paused = true
+		#get_tree().paused = true
+		#player.paused = true
 		player.Player_Glitched()
 		
 		cam.offset = Vector2(rng.randf_range(-cam_shake_amount, cam_shake_amount), rng.randf_range(-cam_shake_amount, cam_shake_amount))
