@@ -1,39 +1,78 @@
-[gd_scene load_steps=6 format=3 uid="uid://cufvw5dp7ydod"]
+[gd_scene load_steps=11 format=3 uid="uid://cufvw5dp7ydod"]
 
 [ext_resource type="Script" uid="uid://cffex241pe16m" path="res://Scripts/mushroom.gd" id="1_22wau"]
-[ext_resource type="Texture2D" uid="uid://c36pbrsaorl3f" path="res://icon.svg" id="2_7k4vs"]
+[ext_resource type="Texture2D" uid="uid://dwrsquokom34a" path="res://Art/enemies/mushroom/3.png" id="2_7dmrx"]
+[ext_resource type="Texture2D" uid="uid://c3xdxdiln2jks" path="res://Art/enemies/mushroom/6.png" id="2_epqk6"]
+[ext_resource type="Texture2D" uid="uid://ddrs4wwl4w10u" path="res://Art/enemies/mushroom/4.png" id="3_epqk6"]
+[ext_resource type="Texture2D" uid="uid://dxo06xx55uf3r" path="res://Art/enemies/mushroom/1.png" id="4_x1w47"]
+[ext_resource type="Texture2D" uid="uid://bixm5kqdrtmk7" path="res://Art/enemies/mushroom/2.png" id="5_33o04"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d42np"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_epqk6")
+}],
+"loop": true,
+"name": &"Dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7dmrx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_epqk6")
+}],
+"loop": true,
+"name": &"idle_L",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_x1w47")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_33o04")
+}],
+"loop": true,
+"name": &"idle_R",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d42np"]
-size = Vector2(15, 2.5)
+size = Vector2(15, 3.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ha4do"]
-size = Vector2(16, 15)
+size = Vector2(16, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epqk6"]
+size = Vector2(12, 16)
 
 [node name="Mushroom" type="CharacterBody2D"]
 process_mode = 3
+z_index = 4
 script = ExtResource("1_22wau")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="anim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_d42np")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-2.38419e-07, -2.38419e-07)
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("2_7k4vs")
+animation = &"Dead"
+autoplay = "idle_R"
 
 [node name="DyingArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DyingArea"]
-position = Vector2(0, -8.25)
+position = Vector2(0, -7.75)
 shape = SubResource("RectangleShape2D_d42np")
 
 [node name="KillerArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillerArea"]
-position = Vector2(0, 0.5)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_ha4do")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_epqk6")
 
 [connection signal="area_entered" from="DyingArea" to="." method="_on_dying_area_area_entered"]
 [connection signal="area_entered" from="KillerArea" to="." method="_on_killer_area_area_entered"]

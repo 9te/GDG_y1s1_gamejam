@@ -1,0 +1,176 @@
+[gd_scene load_steps=15 format=3 uid="uid://cylkxpdengayv"]
+
+[ext_resource type="Texture2D" uid="uid://ddc5av83rpsie" path="res://Art/Ruins-Tilesheet-Omniclause(outlines).png" id="1_35pmb"]
+[ext_resource type="Texture2D" uid="uid://ykwonp753y3t" path="res://Art/Player/idle.png" id="2_wnccn"]
+[ext_resource type="FontFile" uid="uid://1tietc8monub" path="res://joystix monospace.otf" id="3_ljx6v"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkhvn"]
+texture = ExtResource("1_35pmb")
+15:1/0 = 0
+16:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+9:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
+15:3/0 = 0
+16:3/0 = 0
+17:3/0 = 0
+18:3/0 = 0
+19:3/0 = 0
+20:3/0 = 0
+21:3/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+9:4/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+9:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+15:5/0 = 0
+16:5/0 = 0
+18:5/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_cbqnp"]
+sources/0 = SubResource("TileSetAtlasSource_vkhvn")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08lcs"]
+atlas = ExtResource("2_wnccn")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exn0s"]
+atlas = ExtResource("2_wnccn")
+region = Rect2(112, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8ubu"]
+atlas = ExtResource("2_wnccn")
+region = Rect2(192, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvuew"]
+atlas = ExtResource("2_wnccn")
+region = Rect2(272, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wteid"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08lcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exn0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8ubu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvuew")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xggd0"]
+font = ExtResource("3_ljx6v")
+
+[sub_resource type="Animation" id="Animation_wnccn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_35pmb"]
+resource_name = "start_ending"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -300), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ljx6v"]
+_data = {
+&"RESET": SubResource("Animation_wnccn"),
+&"start_ending": SubResource("Animation_35pmb")
+}
+
+[node name="TheEndScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -616.0
+offset_top = -602.0
+offset_right = 628.0
+offset_bottom = 409.0
+color = Color(0, 0, 0, 1)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_cbqnp")
+format = 2
+layer_0/tile_data = PackedInt32Array(196605, 262144, 2, 196606, 262144, 2, 196607, 262144, 2, 131072, 262144, 2, 131073, 262144, 2, 131074, 262144, 2, 131075, 327680, 2, 196604, 196608, 2)
+
+[node name="player" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 25)
+sprite_frames = SubResource("SpriteFrames_wteid")
+autoplay = "default"
+frame_progress = 0.852337
+
+[node name="Label" type="Label" parent="."]
+offset_left = -48.0
+offset_top = -58.0
+offset_right = 48.0
+offset_bottom = -35.0
+text = "THE END"
+label_settings = SubResource("LabelSettings_xggd0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ljx6v")
+}
+autoplay = "start_ending"

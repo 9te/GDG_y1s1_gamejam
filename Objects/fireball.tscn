@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctejmvfgw2lim"]
+
+[ext_resource type="Script" uid="uid://0sw2jatir85s" path="res://Scripts/fireball.gd" id="1_65fow"]
+[ext_resource type="Texture2D" uid="uid://bbe4yk5ttesui" path="res://Art/enemies/fire/1.png" id="1_kscoi"]
+[ext_resource type="Texture2D" uid="uid://biiv6t0joy8n" path="res://Art/enemies/fire/2.png" id="2_65fow"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cwy53"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kscoi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_65fow")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j4o1y"]
+radius = 7.0
+
+[node name="fireball" type="StaticBody2D"]
+script = ExtResource("1_65fow")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cwy53")
+autoplay = "default"
+frame = 1
+frame_progress = 0.578504
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_j4o1y")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

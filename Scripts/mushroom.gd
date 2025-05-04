@@ -6,9 +6,18 @@ var current_target_position: Vector2
 var moving;
 var alive = true
 
+@onready var anim: AnimatedSprite2D = $anim
+
 func _ready() -> void:
 	current_target_position = location1
 	moving = true
+func _process(delta: float) -> void:
+	if alive:
+		if current_target_position.x - self.global_position.x > 0:
+			anim.play("idle_R")
+		else:
+			anim.play("idle_L")
+			
 func _physics_process(delta: float) -> void:
 	
 	if moving:
@@ -35,6 +44,7 @@ func _on_dying_area_area_entered(area: Area2D) -> void:
 		if !player.player_killed:
 			alive = false
 			print("killed by player")
+			anim.play("Dead")
 			player.velocity.y = player.jump_power
 			player.touching_ground = false
 			location1 = Vector2(self.global_position.x, self.global_position.y - 10.0)

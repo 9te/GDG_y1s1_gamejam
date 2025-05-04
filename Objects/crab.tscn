@@ -1,25 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6nohssmuc5h2"]
+[gd_scene load_steps=6 format=3 uid="uid://c6nohssmuc5h2"]
 
-[ext_resource type="Script" uid="uid://cffex241pe16m" path="res://Scripts/mushroom.gd" id="1_njt3n"]
-[ext_resource type="Texture2D" uid="uid://c36pbrsaorl3f" path="res://icon.svg" id="2_23ucg"]
+[ext_resource type="Script" uid="uid://ci66cqcxcioku" path="res://Scripts/crab.gd" id="1_23ucg"]
+[ext_resource type="Texture2D" uid="uid://bpqkwwiitbtnq" path="res://Art/enemies/crab/1.png" id="2_23ucg"]
+[ext_resource type="Texture2D" uid="uid://bpsyykk6jnrpf" path="res://Art/enemies/crab/2.png" id="3_on0eh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d42np"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_23ucg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_23ucg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_on0eh")
+}],
+"loop": true,
+"name": &"run",
+"speed": 7.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ha4do"]
 size = Vector2(16, 16)
 
 [node name="Crab" type="CharacterBody2D"]
 process_mode = 3
-script = ExtResource("1_njt3n")
+script = ExtResource("1_23ucg")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
+[node name="ani" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_d42np")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-2.38419e-07, -2.38419e-07)
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("2_23ucg")
+animation = &"idle"
+autoplay = "run"
 
 [node name="KillerArea" type="Area2D" parent="."]
 

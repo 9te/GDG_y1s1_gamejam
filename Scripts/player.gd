@@ -12,34 +12,47 @@ var player_killed = false
 @onready var collision_shape_2d_2: CollisionShape2D = $CollisionShape2D2
 @onready var collision_shape_2d_3: CollisionShape2D = $parent_area/CollisionShape2D3
 var in_void = false
-	
+var call_once = false
+var current_target_position
+var glitched = false
 func Player_Glitched():
 	if !player_killed:
+		glitched = true
 		dir_x = 0
 		player_time_scale = 0
 		player_input_disabled = true
 	
 func Player_Unglitched():
+	glitched = false
 	player_time_scale = 1
+	velocity = Vector2.ZERO
 	
 
 func player_killed_func():
-	self.get_parent().player_dead()
-	player_input_disabled = true
-	velocity = Vector2.ZERO
-	player_killed = true
+	if !player_killed:
+		
+		player_killed = true
+		velocity = Vector2.ZERO
+		self.get_parent().player_dead()
+		player_input_disabled = true
+		velocity = Vector2.ZERO
+		player_killed = true
 
 func _physics_process(delta: float) -> void:
 	if self.position.y > 180 and !in_void:
 		in_void = true
 		player_killed_func()
 	if player_killed:
-		collision_shape_2d_2.disabled = true
-		collision_shape_2d_3.disabled = true
-		var current_target_position = Vector2(self.global_position.x, self.global_position.y - 10)
+		if !call_once:
+			call_once = true
+			collision_shape_2d_2.disabled = true
+			collision_shape_2d_3.disabled = true
+			current_target_position = Vector2(self.global_position.x, self.global_position.y - 10)
+			#await get_tree().create_timer(0.2).timeout
+			#current_target_position = Vector2(self.global_position.x, self.global_position.y + 500)
 		self.global_position = self.global_position.move_toward(current_target_position, delta*100)
-		if self.global_position == current_target_position:
-			current_target_position = Vector2(self.global_position.x, self.global_position.y + 500)
+		
+			
 		
 	
 	delta *= player_time_scale
@@ -90,10 +103,12 @@ func _physics_process(delta: float) -> void:
 		
 	
 	velocity.x = dir_x * movement_speed
-	if player_time_scale == 1:
-		move_and_slide()
-		_apply_gravity(delta)
-	else:
+	if !glitched: move_and_slide()
+	_apply_gravity(delta)
+	#if player_time_scale == 1:
+		#if !player_killed: move_and_slide()
+		#_apply_gravity(delta)
+	if player_time_scale == 0:
 		if !touching_ground:
 			if facing_right:
 				ani.play("Jump_R")
@@ -108,6 +123,6 @@ func _physics_process(delta: float) -> void:
 			
 	
 func _apply_gravity(delta: float):
-	delta *= player_time_scale
+	#delta *= player_time_scale
 	var grav = get_gravity()
 	velocity.y += grav.y

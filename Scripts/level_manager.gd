@@ -5,10 +5,11 @@ var cpu_load_value = 20
 var glitching_rn
 @onready var player: CharacterBody2D = $Player
 @export var cam_shake_amount: float
-@onready var cam: Camera2D = $Player/Camera2D
+@onready var cam: Camera2D = $Player/Camera2D2
+@onready var player_dead_timer: Timer = $player_dead
 
 @onready var time_till_unglitch: Timer = $Time_Till_Unglitch
-@onready var effect_shader: ColorRect = $Effect_Shader
+@onready var effect_shader: ColorRect = $HUD/Effect_Shader
 @onready var transition: AnimatedSprite2D = $HUD/UI/transition
 var rng = RandomNumberGenerator.new()
 var lvl_finished = false
@@ -18,6 +19,9 @@ var lvl_finished = false
 @export var player_pos: Vector2
 const PLAYER = preload("res://Objects/Player.tscn")
 var game_restarted = false
+
+func _ready() -> void:
+	print(current_lvl)
 func instantiate_player():
 	var player_inst = PLAYER.instantiate()
 	player_inst.position = player_pos
@@ -31,19 +35,23 @@ func next_lvl():
 	transition.show()
 	transition.play("transition_out")
 	await transition.animation_finished
-	saver._save(current_lvl + 1)
-	get_tree().change_scene_to_file("res://Scenes/lvl_" + str(current_lvl + 1) + ".tscn")
+	if current_lvl >= 3:
+		saver._save(1)
+		get_tree().change_scene_to_file("res://Scenes/the_end_scene.tscn")
+	else:
+		saver._save(current_lvl + 1)
+		get_tree().change_scene_to_file("res://Scenes/lvl_" + str(current_lvl + 1) + ".tscn")
 	
 	
 
 func player_dead():
-	$player_dead.start()
-	await $player_dead.timeout
+	#player_dead_timer.start()
+	#await player_dead_timer.timeout
 	transition.show()
 	transition.play("transition_out")
 	await transition.animation_finished
-	
-	get_tree().change_scene_to_file("res://Scenes/"+ get_tree().get_current_scene().name + ".tscn")
+	#print(current_lvl)
+	get_tree().change_scene_to_file("res://Scenes/lvl_"+ str(current_lvl) + ".tscn")
 
 func Time_To_UnCrash() -> void:
 	effect_shader.hide()
@@ -61,9 +69,12 @@ func Time_To_Crash() -> void:
 		player.Player_Glitched()
 		
 		cam.offset = Vector2(rng.randf_range(-cam_shake_amount, cam_shake_amount), rng.randf_range(-cam_shake_amount, cam_shake_amount))
-		cpu_load_value += 10
+		cpu_load_value += 2
 		if cpu_load_value >= 100:
-			player.player_killed_func()
+			transition.show()
+			transition.play("transition_out")
+			await transition.animation_finished
+			get_tree().change_scene_to_file("res://Scenes/"+ get_tree().get_current_scene().name + ".tscn")
 		pass # Replace with function body.
 
 

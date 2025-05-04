@@ -1,31 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://5ywj1uk1udna"]
+[gd_scene load_steps=4 format=3 uid="uid://5ywj1uk1udna"]
 
 [ext_resource type="Script" uid="uid://bt7hwg7drr67k" path="res://Scripts/cannonball.gd" id="1_h2hsq"]
-[ext_resource type="Texture2D" uid="uid://bvn0a4evmgyu2" path="res://Art/level_box.png" id="2_naw3k"]
+[ext_resource type="Texture2D" uid="uid://c4m35ylvh3nxk" path="res://Art/cannonball.png" id="2_naw3k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ujji2"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_naw3k"]
-radius = 5.0
+radius = 6.0
 
 [node name="Cannonball" type="CharacterBody2D"]
 process_mode = 3
+z_index = 4
 script = ExtResource("1_h2hsq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_naw3k")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 30.0
 autostart = true
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_ujji2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_naw3k")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

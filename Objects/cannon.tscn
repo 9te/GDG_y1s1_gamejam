@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://tl5f6wv318g8"]
 
-[ext_resource type="Texture2D" uid="uid://bvn0a4evmgyu2" path="res://Art/level_box.png" id="1_s70kh"]
 [ext_resource type="Script" uid="uid://xtvsiykv2imu" path="res://Scripts/cannon.gd" id="2_7h8w5"]
+[ext_resource type="Texture2D" uid="uid://d0u0jg3qqpg5v" path="res://Art/cannon.png" id="2_e3u5p"]
 
 [node name="Cannon" type="Node2D"]
 process_mode = 3
@@ -12,6 +12,6 @@ wait_time = 2.0
 autostart = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_s70kh")
+texture = ExtResource("2_e3u5p")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

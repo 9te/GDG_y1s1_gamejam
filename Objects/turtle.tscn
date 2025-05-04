@@ -73,7 +73,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle_R",
-"speed": 2.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -88,21 +88,22 @@ animations = [{
 size = Vector2(15, 2.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ha4do"]
-size = Vector2(16, 15)
+size = Vector2(2, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_irvfh"]
-size = Vector2(14, 16)
+size = Vector2(12, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ragxy"]
 size = Vector2(3, 8)
 
 [node name="Turtle" type="CharacterBody2D"]
 process_mode = 3
+z_index = 4
 script = ExtResource("1_d42np")
 
 [node name="ani" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_d42np")
-animation = &"idle_L"
+animation = &"idle_R"
 
 [node name="DyingArea" type="Area2D" parent="."]
 
@@ -113,10 +114,15 @@ shape = SubResource("RectangleShape2D_d42np")
 [node name="KillerArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillerArea"]
-position = Vector2(0, 0.5)
+position = Vector2(-7, 1.5)
+shape = SubResource("RectangleShape2D_ha4do")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="KillerArea"]
+position = Vector2(7, 1)
 shape = SubResource("RectangleShape2D_ha4do")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_irvfh")
 
 [node name="RightDetector" type="Area2D" parent="."]
@@ -124,7 +130,7 @@ process_mode = 3
 process_physics_priority = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightDetector"]
-position = Vector2(7.5, 0)
+position = Vector2(6, 0)
 shape = SubResource("RectangleShape2D_ragxy")
 
 [node name="LeftDetector" type="Area2D" parent="."]
@@ -132,7 +138,7 @@ process_mode = 3
 process_physics_priority = 1
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="LeftDetector"]
-position = Vector2(-8, 0)
+position = Vector2(-6, 0)
 shape = SubResource("RectangleShape2D_ragxy")
 
 [connection signal="area_entered" from="DyingArea" to="." method="dying_area_entered"]

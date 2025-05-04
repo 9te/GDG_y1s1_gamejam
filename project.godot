@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GDG_Y1S1_GameJam"
-run/main_scene="uid://b2ahtxo1johy3"
+run/main_scene="uid://bh4q5ht3mex2f"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -59,9 +59,9 @@ Enter={
 [physics]
 
 2d/default_gravity=9.8
-2d/defaults/default_clear_color=Color(0.0941176, 0.0784314, 0.145098, 1)
+2d/defaults/default_clear_color=Color(0.772549, 0.843137, 0.854902, 1)
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.772549, 0.843137, 0.854902, 1)
