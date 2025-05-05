@@ -439,26 +439,14 @@ location2 = Vector2(648, 8)
 speed = 50.0
 
 [node name="Mushroom" parent="." instance=ExtResource("3_3ncgx")]
-position = Vector2(312, 8)
-location1 = Vector2(440, 8)
-location2 = Vector2(184, 8)
-speed = 50.0
-
-[node name="Mushroom2" parent="." instance=ExtResource("3_3ncgx")]
 position = Vector2(184, 8)
 location1 = Vector2(440, 8)
 location2 = Vector2(184, 8)
 speed = 50.0
 
-[node name="Mushroom3" parent="." instance=ExtResource("3_3ncgx")]
-position = Vector2(440, 8)
-location1 = Vector2(184, 8)
-location2 = Vector2(440, 8)
-speed = 50.0
-
 [node name="Player" parent="." instance=ExtResource("4_76erq")]
 z_index = 4
-position = Vector2(-131, -41)
+position = Vector2(-129, -40)
 
 [node name="Camera2D2" type="Camera2D" parent="Player"]
 position = Vector2(57, 76)
@@ -467,6 +455,9 @@ limit_bottom = 150
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Player"]
+current = true
 
 [node name="Goal" parent="." instance=ExtResource("6_5tbar")]
 position = Vector2(1312, -88)
@@ -518,6 +509,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="transition" parent="HUD/UI" instance=ExtResource("9_rb305")]
+visible = false
 
 [node name="RestartButton" type="Button" parent="HUD"]
 self_modulate = Color(1, 1, 1, 0)

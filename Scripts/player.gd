@@ -15,6 +15,8 @@ var in_void = false
 var call_once = false
 var current_target_position
 var glitched = false
+@onready var audio_listener_2d: AudioListener2D = $AudioListener2D
+
 func Player_Glitched():
 	if !player_killed:
 		glitched = true
@@ -29,8 +31,10 @@ func Player_Unglitched():
 	
 
 func player_killed_func():
+	#GAudio.global_position = self.global_position
 	if !player_killed:
-		
+		AudioExtra.stream = load("res://Music/hitHurt.wav")
+		AudioExtra.play()
 		player_killed = true
 		velocity = Vector2.ZERO
 		self.get_parent().player_dead()

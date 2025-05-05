@@ -19,9 +19,21 @@ var lvl_finished = false
 @export var player_pos: Vector2
 const PLAYER = preload("res://Objects/Player.tscn")
 var game_restarted = false
+const MAIN = preload("res://Music/main.wav")
+const GLITCH = preload("res://Music/glitch.wav")
+const HIT_HURT = preload("res://Music/hitHurt.wav")
+
+@onready var audio_extra: AudioStreamPlayer2D = $AudioExtra
+@onready var audio_listener_2d: AudioListener2D = $Player/AudioListener2D
+
 
 func _ready() -> void:
+	audio_listener_2d.is_current()
 	print(current_lvl)
+	if GAudio.volume_db == -20:
+		GAudio.stream = MAIN
+		GAudio.volume_db = 0
+		GAudio.play()
 func instantiate_player():
 	var player_inst = PLAYER.instantiate()
 	player_inst.position = player_pos
@@ -50,10 +62,14 @@ func player_dead():
 	transition.show()
 	transition.play("transition_out")
 	await transition.animation_finished
+	
 	#print(current_lvl)
 	get_tree().change_scene_to_file("res://Scenes/lvl_"+ str(current_lvl) + ".tscn")
 
 func Time_To_UnCrash() -> void:
+	GAudio.stream_paused = false
+	AudioExtra.stream = GLITCH
+	AudioExtra.play()
 	effect_shader.hide()
 	player.Player_Unglitched()
 	get_tree().paused = false
@@ -62,6 +78,9 @@ func Time_To_UnCrash() -> void:
 
 func Time_To_Crash() -> void:
 	if !player.player_killed and !lvl_finished:
+		GAudio.stream_paused = true
+		AudioExtra.stream = GLITCH
+		AudioExtra.play()
 		effect_shader.show()
 		time_till_unglitch.start()
 		#get_tree().paused = true
@@ -73,6 +92,8 @@ func Time_To_Crash() -> void:
 		if cpu_load_value >= 100:
 			transition.show()
 			transition.play("transition_out")
+			AudioExtra.stream = HIT_HURT
+			AudioExtra.play()
 			await transition.animation_finished
 			get_tree().change_scene_to_file("res://Scenes/"+ get_tree().get_current_scene().name + ".tscn")
 		pass # Replace with function body.
@@ -87,6 +108,8 @@ func CPU_Load_Variability_Timer() -> void:
 
 func _on_restart_button_button_down() -> void:
 	if !game_restarted:
+		AudioExtra.stream = HIT_HURT
+		AudioExtra.play()
 		game_restarted = true
 		transition.show()
 		transition.play("transition_out")

@@ -6,6 +6,10 @@ var dialogue_box_skippable
 var page = 0
 @export var dialogue_text = ["The game has finished", "but why has the exit closed?", "there is only one way to exit this place", "But i dont really have a good feeling about this"] 
 @onready var enter_label: Label = $"../DialogueBox/enter"
+@onready var audio_listener_2d: AudioListener2D = $"../Camera2D/AudioListener2D"
+
+func _ready() -> void:
+	audio_listener_2d.is_current()
 
 func type_dialogue(dialogue):
 	dialogue_box_skippable = false

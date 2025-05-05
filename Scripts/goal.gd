@@ -22,7 +22,8 @@ func _physics_process(delta: float) -> void:
 		#Engine.time_scale = 0
 		player.hide()
 		player_done.show()
-		
+		AudioExtra.stream = load("res://Music/pickupCoin.wav")
+		AudioExtra.play()
 		player_done.get_node("AnimationPlayer").play("going_down")
 		#collision_shape_2d.disabled = true
 		#player.global_position = Vector2(self.global_position.x, self.global_position.y - 16)

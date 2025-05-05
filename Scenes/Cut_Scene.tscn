@@ -639,7 +639,7 @@ animations = [{
 "speed": 4.0
 }]
 
-[node name="cutscene" type="Node2D"]
+[node name="Cut_Scene" type="Node2D"]
 process_mode = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -658,6 +658,8 @@ offset_top = -363.0
 offset_right = 628.0
 offset_bottom = 409.0
 color = Color(0, 0, 0, 1)
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Camera2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_rf4qq")
