@@ -8,6 +8,7 @@ Played around with godot shaders and had loads of fun showcasing this game to ot
 
 # Game play screenshots
 ![image](https://github.com/user-attachments/assets/0536ce6f-88d3-4650-8725-1ad1754b499b)
+![image](https://github.com/user-attachments/assets/73516459-001f-40f4-ad12-2c7275f6f505)
 ![image](https://github.com/user-attachments/assets/b90ba216-146d-4b86-97c7-9a50411db723)
 ![image](https://github.com/user-attachments/assets/2faaa98f-f212-4dc1-b815-e2de041411f8)
 ![image](https://github.com/user-attachments/assets/4c272aca-0905-4eb7-a60f-18b823ba965c)
