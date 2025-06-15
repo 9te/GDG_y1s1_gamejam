@@ -1,4 +1,5 @@
 # Dislodged
+itch page link: https://vyomesh-jamwal.itch.io/dislodged
 A game I developed for the 1st semester 2025 Game Development Guild game jam at University of Auckland, alongside <a href="https://github.com/mofumofy?tab=repositories">mofumofy</a> who created the art for the entire game, on the theme of "Crash" (+ the 8-bit music was also created by me, not the best at it though). Eventhough we were given 2 months, me getting used to uni and a new country took large part of my time, so this game was developed in 3 full days of work.
 In this game your player is from a different world, and thus experiences lag spikes where the player freezes in time. You have to make sure you do not freeze at a time where you are in mid air and right above the void.
 
